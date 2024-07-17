@@ -1,0 +1,17 @@
+from bs4 import BeautifulSoup
+import requests
+from datetime import datetime
+
+today = datetime.today()
+yyyymmdd = today.strftime("%Y%m%d")
+
+url = 'https://www.cbssports.com/fantasy/baseball/probable-pitchers/' + yyyymmdd
+
+website = requests.get(url)
+scrape =BeautifulSoup(website.text, "html.parser")
+
+pitcher = scrape.find_all("span", attrs={"class":"CellPlayerName--long"})
+
+
+for player in pitcher:
+    print(player.text) 
